@@ -1,0 +1,10 @@
+node_modules
+
+.vscode
+.yarn
+.project
+.history
+build/
+dist/
+yarn-error.log
+yarn.lock
