@@ -1,4 +1,4 @@
-import { RuleObject } from 'antd/lib/form';
+import { FormProps as AntdFormProps, RuleObject } from 'antd/lib/form';
 import { NamePath } from 'antd/lib/form/interface';
 import { RowProps } from 'antd/lib/grid/row';
 import { CSSProperties } from 'react';
@@ -78,13 +78,9 @@ export type FormSchema = ComponentFormSchemaType;
 
 export type FormSchemaInner = Partial<ComponentFormSchema> & BaseFormSchema;
 
-export interface FormProps {
-  name?: string;
-  layout?: 'vertical' | 'inline' | 'horizontal';
-  // Form value
+export interface FormProps extends AntdFormProps {
   model?: Recordable;
   labelWidth?: number | string;
-  labelAlign?: 'left' | 'right';
   rowProps?: RowProps;
   submitOnReset?: boolean;
   submitOnChange?: boolean;
@@ -95,12 +91,6 @@ export interface FormProps {
   mergeDynamicData?: Recordable;
   // Compact mode for search forms
   compact?: boolean;
-  // Internal component size of the form
-  size?: 'default' | 'small' | 'large';
-  // Whether to disable
-  disabled?: boolean;
-  // Whether to readonly
-  readonly?: boolean;
   formatRangeDate?: [string, [string, string], (string | [string, string])?][];
   // Placeholder is set automatically
   autoSetPlaceHolder?: boolean;
@@ -122,7 +112,6 @@ export interface FormProps {
   resetFunc?: () => Promise<void>;
   submitFunc?: () => Promise<void>;
   transformDateFunc?: (date: any) => string;
-  colon?: boolean;
   //如果 showAdvancedButton 为 true，超过指定列数默认折叠，默认为3
   autoAdvancedCol?: number;
 }

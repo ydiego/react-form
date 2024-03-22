@@ -9,6 +9,7 @@ interface UseFormEventsContext {
   defaultValueRef: React.MutableRefObject<any>;
   formProps: FormProps;
   handleFormValues: Fn;
+  onSubmit?: Fn;
 }
 
 export function useFormEvents({
@@ -17,6 +18,7 @@ export function useFormEvents({
   defaultValueRef,
   formProps,
   handleFormValues,
+  onSubmit,
 }: UseFormEventsContext) {
   async function resetFields(): Promise<void> {
     const { resetFunc, submitOnReset } = formProps;
@@ -41,8 +43,7 @@ export function useFormEvents({
 
   async function validate(nameList?: NamePath[]): Promise<any> {
     await validateFields(nameList);
-    const value = await formInstance.getFieldsValue();
-    return handleFormValues(value);
+    return getFieldsValue();
   }
 
   async function validateFields(nameList?: NamePath[]): Promise<void> {
@@ -55,7 +56,8 @@ export function useFormEvents({
     if (submitFunc && isFunction(submitFunc)) {
       return await submitFunc();
     }
-    await formInstance.submit();
+    const value = await validate();
+    return onSubmit?.(value);
   }
 
   async function scrollToField(

@@ -1,6 +1,6 @@
 import { Form } from 'antd';
-import dayjs from 'dayjs';
 import { cloneDeep } from 'lodash-es';
+import dayjs from 'dayjs';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import FormAction from './components/FormAction';
 import FormItem from './components/FormItem';
@@ -92,6 +92,7 @@ const BasicForm: React.FC<BasicProps> = (props) => {
     formModel,
     formProps: getProps,
     handleFormValues,
+    onSubmit: props.onSubmit,
   });
 
   async function setProps(formProps: Partial<FormProps>) {
@@ -121,7 +122,7 @@ const BasicForm: React.FC<BasicProps> = (props) => {
       layout={getProps.layout || 'horizontal'}
       form={formInstance}
       scrollToFirstError
-      {...props}
+      {...getProps}
     >
       {getSchema?.map((schema) => {
         return (
